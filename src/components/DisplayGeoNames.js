@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import _ from 'lodash';
+import GeoNamesTable from "./GeoNamesTable";
 
 function DisplayGeoNames() {
 
     const [inputText, setInputText] = useState("");
     const [geoNamesArray, setGeoNamesArray]=useState([]);
     const [inputFirstTwoChars, setInputFirstTwoChars]=useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(()=>{
         let cancelled = false;//Cancelled is set to false and state is only updated if the effect is not cancelled
@@ -15,6 +16,7 @@ function DisplayGeoNames() {
             }
         }
         else{
+            setIsLoading(true);
             fetch('/locations/?q='+inputFirstTwoChars)
                 .then(response=>{
                     console.log(response);
@@ -33,6 +35,7 @@ function DisplayGeoNames() {
                         }
                     }
                 )
+                .finally(()=>setIsLoading(false))
                 .catch(console.log)
         }
         return () => (cancelled = true);//cleanup done to avoid updating dom after cancelling the effect
@@ -46,29 +49,11 @@ function DisplayGeoNames() {
     return (
         <div>
             <input value={inputText} onChange={handleChange} placeholder='search box' className='inputTextBox'/>
-            {geoNamesArray.length ?
-                <table className='geoNamesTable'>
-                    <thead>
-                    <tr>
-                        <th> Name</th>
-                        <th> Latitude</th>
-                        <th> Longitude</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {geoNamesArray.filter(element=>  _.startsWith(element.name.toLowerCase(), inputText.toLowerCase())).map((filtered, i) => <tr key={i}>
-                        <td>{filtered.name}</td>
-                        <td>{filtered.latitude}</td>
-                        <td>{filtered.longitude}</td>
-                    </tr>)
-                    }
-                    </tbody>
-                </table>
+            {isLoading ?
+                <div>...Loading</div>
                 :
-                null
+                <GeoNamesTable geoNamesArray={geoNamesArray} inputText={inputText}/>
             }
-
-
         </div>
 
     );
