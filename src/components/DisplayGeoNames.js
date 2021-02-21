@@ -4,8 +4,11 @@ function DisplayGeoNames() {
     const [inputText, setInputText] = useState("");
     const [geoNamesArray, setGeoNamesArray]=useState([]);
     useEffect(()=>{
+        let cancelled = false;//Cancelled is set to false and state is only updated if the effect is not cancelled
         if(inputText.length<2){
-            setGeoNamesArray([]);
+            if(!cancelled){
+                setGeoNamesArray([]);
+            }
         }
         else{
             fetch('/locations/?q='+inputText)
@@ -21,11 +24,14 @@ function DisplayGeoNames() {
                 .then((result)=>
                     {
                         console.log(result);
-                        setGeoNamesArray(result);
+                        if(!cancelled){
+                            setGeoNamesArray(result);
+                        }
                     }
                 )
                 .catch(console.log)
         }
+        return () => (cancelled = true);//cleanup done to avoid any race conditions
     }, [inputText])
     const handleChange=(e)=>{
         setInputText(e.target.value);
