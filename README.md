@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# Virtual coding challenge
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Installation
+
+run yarn install
+
+yarn server
+
+To start the client
+
+yarn start
 
 ## Available Scripts
 

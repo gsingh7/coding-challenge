@@ -19,9 +19,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
-    "server": "node server.js"
+    "server": "node server.js",
+    "clientTests": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
