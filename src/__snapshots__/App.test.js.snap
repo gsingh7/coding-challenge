@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplayGeoNames renders correctly 1`] = `
+<div>
+  <input
+    className="input-text-box"
+    onChange={[Function]}
+    placeholder="search box"
+    value=""
+  />
+  <button
+    className="toggle-button"
+    onClick={[Function]}
+  >
+    <span>
+      Closest Name Match 
+      <span>
+        is OFF (Toggle ON)
+      </span>
+    </span>
+  </button>
+  <div />
+</div>
+`;
