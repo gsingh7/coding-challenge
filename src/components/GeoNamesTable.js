@@ -14,7 +14,8 @@ function GeoNamesTable({geoNamesArray, inputText}) {
                     </tr>
                     </thead>
                     <tbody>
-                    {geoNamesArray.filter(element=>  _.startsWith(element.name.toLowerCase(), inputText.toLowerCase())).map((filtered, i) => <tr key={i}>
+                    {geoNamesArray.filter(element=>  _.startsWith(element.name.toLowerCase(), inputText.toLowerCase())||_.startsWith(element.asciiname.toLowerCase(), inputText.toLowerCase()))
+                        .map((filtered) => <tr key={filtered.geonameid}>
                         <td>{filtered.name}</td>
                         <td>{filtered.latitude}</td>
                         <td>{filtered.longitude}</td>

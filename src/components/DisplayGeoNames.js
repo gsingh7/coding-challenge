@@ -9,7 +9,7 @@ function DisplayGeoNames() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(()=>{
-        let cancelled = false;//Cancelled is set to false and state is only updated if the effect is not cancelled
+        let cancelled = false;//Cancelled is set to false and state is only updated if the effect is not cancelled during cleanup
         if(inputFirstTwoChars.length<2){
             if(!cancelled){
                 setGeoNamesArray([]);
@@ -38,7 +38,7 @@ function DisplayGeoNames() {
                 .finally(()=>setIsLoading(false))
                 .catch(console.log)
         }
-        return () => (cancelled = true);//cleanup done to avoid updating dom after cancelling the effect
+        return () => (cancelled = true);//cleanup done to avoid updating Dom caused by an earlier effect
     }, [inputFirstTwoChars]);//the effect needs to run only when first two characters change. The results are filtered for display.
 
     const handleChange=(e)=>{

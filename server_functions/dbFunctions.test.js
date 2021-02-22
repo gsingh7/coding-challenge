@@ -1,6 +1,5 @@
 const {runQuery_v2, getObjectsFromDb} = require('./dbFunctions')
 const _ = require('lodash');
-
 describe("Database query checks",  ()=>{
 
     it('Sample query with geonameid', () => {
@@ -142,6 +141,14 @@ describe('Testing getting correct Objects with a Query', ()=>{
     })
     it('Query with special characters Ágios', ()=>{
         return getObjectsFromDb('Ágios')
+            .then(returnObject=>{
+                var containsSpecialCharacters = _.find(returnObject, (o)=>{ return o.name==='Ágios Vasíleios';});
+                expect(containsSpecialCharacters.name).toBeTruthy();
+
+            });
+    });
+    it('Query with ascii characters Agios returns Ágios Vasíleios', ()=>{
+        return getObjectsFromDb('Agios')
             .then(returnObject=>{
                 var containsSpecialCharacters = _.find(returnObject, (o)=>{ return o.name==='Ágios Vasíleios';});
                 expect(containsSpecialCharacters.name).toBeTruthy();

@@ -1,12 +1,10 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-var cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
-var {getObjectsFromDb} = require('./dbFunctions');
+var {getObjectsFromDb} = require('./server_functions/dbFunctions');
 
-app.use(cors()); //todo this is only for development environment and needs to be determined if requires fixing for production
 app.use(express.static(path.join(__dirname, 'build')));
 
 // @route GET /locations?q=startString
