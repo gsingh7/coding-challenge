@@ -7,6 +7,8 @@ function DisplayGeoNames() {
     const [geoNamesArray, setGeoNamesArray]=useState([]);
     const [inputFirstTwoChars, setInputFirstTwoChars]=useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [closestNameMatch, setClosestNameMatch]=useState(false);//toggle for closest name match sort
+    //closest name match will sort the queried results by levinshtein distance. The query is based on first two characters.
 
     useEffect(()=>{
         let cancelled = false;//Cancelled is set to false and state is only updated if the effect is not cancelled during cleanup
@@ -49,10 +51,13 @@ function DisplayGeoNames() {
     return (
         <div>
             <input value={inputText} onChange={handleChange} placeholder='search box' className='inputTextBox'/>
+            <button onClick={()=>{setClosestNameMatch(!closestNameMatch)}}>
+                <span>Closest Name Match (Toggle {closestNameMatch?<span>OFF</span>:<span>ON</span>})</span>
+            </button>
             {isLoading ?
                 <div>...Loading</div>
                 :
-                <GeoNamesTable geoNamesArray={geoNamesArray} inputText={inputText}/>
+                <GeoNamesTable geoNamesArray={geoNamesArray} inputText={inputText} closestNameMatch={closestNameMatch}/>
             }
         </div>
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import _ from "lodash";
+import {distance} from 'fastest-levenshtein'
 
-function GeoNamesTable({geoNamesArray, inputText}) {
+function GeoNamesTable({geoNamesArray, inputText, closestNameMatch}) {
     return (
         <div>
             {geoNamesArray&&geoNamesArray.length ?
@@ -13,15 +14,32 @@ function GeoNamesTable({geoNamesArray, inputText}) {
                         <th> Longitude</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {geoNamesArray.filter(element=>  _.startsWith(element.name.toLowerCase(), inputText.toLowerCase())||_.startsWith(element.asciiname.toLowerCase(), inputText.toLowerCase()))
-                        .map((filtered) => <tr key={filtered.geonameid}>
-                        <td>{filtered.name}</td>
-                        <td>{filtered.latitude}</td>
-                        <td>{filtered.longitude}</td>
-                    </tr>)
+                    {closestNameMatch ?
+                        <tbody>
+                        {//sorting by Levenshtein distance of name the input text
+                            _.sortBy(geoNamesArray, [o=> distance(o.name.toLowerCase(), inputText.toLowerCase())])
+                                .map((sorted) => <tr key={sorted.geonameid}>
+                                        <td>{sorted.name}</td>
+                                        <td>{sorted.latitude}</td>
+                                        <td>{sorted.longitude}</td>
+                                    </tr>
+                                )
+                        }
+                        </tbody>
+                        :
+                        <tbody>
+                        {
+                            geoNamesArray.filter(element=>  _.startsWith(element.name.toLowerCase(), inputText.toLowerCase())||_.startsWith(element.asciiname.toLowerCase(), inputText.toLowerCase()))
+                                .map((filtered) => <tr key={filtered.geonameid}>
+                                        <td>{filtered.name}</td>
+                                        <td>{filtered.latitude}</td>
+                                        <td>{filtered.longitude}</td>
+                                    </tr>
+                                )
+                        }
+                        </tbody>
                     }
-                    </tbody>
+
                 </table>
                 :
                 null
