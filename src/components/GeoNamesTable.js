@@ -16,8 +16,8 @@ function GeoNamesTable({geoNamesArray, inputText, closestNameMatch}) {
                     </thead>
                     {closestNameMatch ?
                         <tbody>
-                        {//sorting by Levenshtein distance of name the input text
-                            _.sortBy(geoNamesArray, [o=> distance(o.name.toLowerCase(), inputText.toLowerCase())])
+                        {//sorting by Levenshtein distance between name of place and the input text. The distance is computed on substring of names with same length as inputText length for better match.
+                            _.sortBy(geoNamesArray, [o=> distance(o.name.substring(0, inputText.length-1).toLowerCase(), inputText.toLowerCase())])
                                 .map((sorted) => <tr key={sorted.geonameid}>
                                         <td>{sorted.name}</td>
                                         <td>{sorted.latitude}</td>
