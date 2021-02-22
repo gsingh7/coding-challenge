@@ -4,7 +4,7 @@ import DisplayGeoNames from "./components/DisplayGeoNames";
 function App() {
   return (
     <div className="App">
-        <h1>Virtual Tours Coding Challenge</h1>
+        <h1>Virtual Trips Coding Challenge</h1>
         <DisplayGeoNames/>
     </div>
   );
