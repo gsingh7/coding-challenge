@@ -3,11 +3,17 @@
   margin-left: 20px;
 }
 
-.inputTextBox{
-  width: 80%;
+.input-text-box{
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 5px;
   box-sizing: border-box;
+}
+
+.toggle-button{
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 5px;
 }
 
 .GeoNamesTable{

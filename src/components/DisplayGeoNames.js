@@ -50,9 +50,9 @@ function DisplayGeoNames() {
 
     return (
         <div>
-            <input value={inputText} onChange={handleChange} placeholder='search box' className='inputTextBox'/>
-            <button onClick={()=>{setClosestNameMatch(!closestNameMatch)}}>
-                <span>Closest Name Match (Toggle {closestNameMatch?<span>OFF</span>:<span>ON</span>})</span>
+            <input value={inputText} onChange={handleChange} placeholder='search box' className='input-text-box'/>
+            <button onClick={()=>{setClosestNameMatch(!closestNameMatch)}} className='toggle-button'>
+                <span>Closest Name Match {closestNameMatch?<span>is ON (Toggle OFF)</span>:<span>is OFF (Toggle ON)</span>}</span>
             </button>
             {isLoading ?
                 <div>...Loading</div>

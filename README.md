@@ -21,9 +21,13 @@ The project is hosted on Heroku. [Click here](https://virtualtour-challenge.hero
 
 2. The JSON response from the server returns an array of objects with geonameid, name, asciiname, latitude and longitude of the matches.
 This is not as per format required in the question but was needed to display lat/long.
-   
 
-3. The bonus points for *Sort the results by the closest name match* is not clear. The name match is sorted in alphabetical order.
+
+4. A Toggle button exists for closest name match. 
+   When closest name match is ON, the responses from server are sorted by
+   Levenshtein distance to the word in text box.
+   At least two characters are needed to get response from the server.
+   After receiving the response is sorted/filtered based on whether the toggle is ON or OFF.
 
 
 
